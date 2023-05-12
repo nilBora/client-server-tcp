@@ -12,9 +12,11 @@ import (
 )
 
 type Message struct {
-	ID   string
+	Uuid   string
 	Data string
 }
+
+var count = 1
 
 func main() {
     arguments := os.Args
@@ -50,7 +52,6 @@ func main() {
         // decodes buffer and unmarshals it into a Message struct
         gobobjdec.Decode(tmpstruct)
 
-
         if err != nil {
             fmt.Println(err)
             return
@@ -60,7 +61,7 @@ func main() {
             return
         }
 
-        fmt.Print("-> ", string(tmpstruct.Data))
+        fmt.Print("-> Uuid: ", string(tmpstruct.Uuid), " Message: ",string(tmpstruct.Data))
         t := time.Now()
         myTime := t.Format(time.RFC3339) + "\n"
         c.Write([]byte(myTime))

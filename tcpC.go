@@ -8,10 +8,11 @@ import (
     "strings"
     "encoding/gob"
     "bytes"
+    "github.com/google/uuid"
 )
 
 type Message struct {
-	ID   string
+	Uuid   string
 	Data string
 }
 
@@ -34,7 +35,7 @@ func main() {
         fmt.Print(">> ")
         text, _ := reader.ReadString('\n')
 
-        msg := Message{ID: "ID1", Data: text}
+        msg := Message{Uuid: uuid.New().String(), Data: text}
 
         binBuf := new(bytes.Buffer)
         gobobj := gob.NewEncoder(binBuf)
