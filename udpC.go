@@ -6,7 +6,15 @@ import (
     "net"
     "os"
     "strings"
+    "encoding/gob"
+    "bytes"
+    "github.com/google/uuid"
 )
+
+type Message struct {
+	Uuid   string
+	Data string
+}
 
 func main() {
         arguments := os.Args
@@ -30,9 +38,18 @@ func main() {
             reader := bufio.NewReader(os.Stdin)
             fmt.Print(">> ")
             text, _ := reader.ReadString('\n')
-            data := []byte(text + "\n")
-            _, err = c.Write(data)
-            if strings.TrimSpace(string(data)) == "STOP" {
+
+            msg := Message{Uuid: uuid.New().String(), Data: text}
+
+            binBuf := new(bytes.Buffer)
+            gobobj := gob.NewEncoder(binBuf)
+            gobobj.Encode(msg)
+
+            //data := []byte(text + "\n")
+            //_, err = c.Write(data)
+            _, err = c.Write(binBuf.Bytes())
+
+            if strings.TrimSpace(string(text)) == "STOP" {
                 fmt.Println("Exiting UDP client!")
                 return
             }

@@ -8,7 +8,14 @@ import (
     "strconv"
     "strings"
     "time"
+    "bytes"
+    "encoding/gob"
 )
+
+type Message struct {
+	Uuid   string
+	Data string
+}
 
 func random(min, max int) int {
     return rand.Intn(max-min) + min
@@ -39,10 +46,20 @@ func main() {
     rand.Seed(time.Now().Unix())
 
     for {
-        n, addr, err := connection.ReadFromUDP(buffer)
-        fmt.Print("-> ", string(buffer[0:n-1]))
+        _, addr, err := connection.ReadFromUDP(buffer)
 
-        if strings.TrimSpace(string(buffer[0:n])) == "STOP" {
+        tmpbuff := bytes.NewBuffer(buffer)
+        tmpstruct := new(Message)
+        // creates a decoder object
+        gobobjdec := gob.NewDecoder(tmpbuff)
+        // decodes buffer and unmarshals it into a Message struct
+        gobobjdec.Decode(tmpstruct)
+
+
+       // fmt.Print("-> ", string(buffer[0:n-1]))
+        fmt.Print("-> ", tmpstruct.Data)
+        fmt.Print("-> ", tmpstruct.Uuid)
+        if strings.TrimSpace(string(tmpstruct.Data)) == "STOP" {
             fmt.Println("Exiting UDP server!")
             return
         }
