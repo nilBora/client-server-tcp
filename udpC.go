@@ -45,8 +45,6 @@ func main() {
             gobobj := gob.NewEncoder(binBuf)
             gobobj.Encode(msg)
 
-            //data := []byte(text + "\n")
-            //_, err = c.Write(data)
             _, err = c.Write(binBuf.Bytes())
 
             if strings.TrimSpace(string(text)) == "STOP" {

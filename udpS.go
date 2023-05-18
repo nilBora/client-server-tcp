@@ -55,10 +55,7 @@ func main() {
         // decodes buffer and unmarshals it into a Message struct
         gobobjdec.Decode(tmpstruct)
 
-
-       // fmt.Print("-> ", string(buffer[0:n-1]))
-        fmt.Print("-> ", tmpstruct.Data)
-        fmt.Print("-> ", tmpstruct.Uuid)
+        fmt.Print("-> ", tmpstruct.Data, " UUID: ", tmpstruct.Uuid)
         if strings.TrimSpace(string(tmpstruct.Data)) == "STOP" {
             fmt.Println("Exiting UDP server!")
             return
