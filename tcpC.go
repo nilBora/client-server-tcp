@@ -41,7 +41,6 @@ func main() {
         gobobj := gob.NewEncoder(binBuf)
         gobobj.Encode(msg)
 
-        //fmt.Fprintf(c, msg+"\n")
         c.Write(binBuf.Bytes())
 
         message, _ := bufio.NewReader(c).ReadString('\n')
