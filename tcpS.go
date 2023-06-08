@@ -1,14 +1,14 @@
 package main
 
 import (
-       // "bufio"
-        "fmt"
-        "net"
-        "os"
-        "strings"
-        "time"
-        "bytes"
-        "encoding/gob"
+   // "bufio"
+    "fmt"
+    "net"
+    "os"
+    "strings"
+    "time"
+    "bytes"
+    "encoding/gob"
 )
 
 type Message struct {
