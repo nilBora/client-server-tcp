@@ -19,8 +19,8 @@ type Message struct {
 func main() {
     arguments := os.Args
     if len(arguments) == 1 {
-            fmt.Println("Please provide host:port.")
-            return
+        fmt.Println("Please provide host:port.")
+        return
     }
 
     CONNECT := arguments[1]
