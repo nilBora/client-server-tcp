@@ -40,11 +40,8 @@ func main() {
     }
 
     for {
-        //netData, err := bufio.NewReader(c).ReadString('\n')
-
         tmp := make([]byte, 500)
         c.Read(tmp)
-        // convert bytes into Buffer (which implements io.Reader/io.Writer)
         tmpbuff := bytes.NewBuffer(tmp)
         tmpstruct := new(Message)
         // creates a decoder object
